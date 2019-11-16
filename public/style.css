@@ -1,0 +1,47 @@
+html, body {
+    height: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    background: black;
+    font-family: Arial;
+    color: white;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.content {
+    text-align: center;
+}
+
+.container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.slideshow > .slide, .slideshow > .slide span {
+    transition-duration: 1s;
+    transition-property: opacity;
+    transition-timing-function: ease;
+    opacity: 0;
+    display: none;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.slideshow > .slide span {
+    display: inline;
+}
+
+.slide em {
+    font-style: normal;
+    color: blue;
+    font-size: 1.1em;
+}

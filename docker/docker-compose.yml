@@ -1,0 +1,24 @@
+version: '3'
+
+# copy .env.sample to .env and configure
+# launch the proxy https://github.com/evertramos/docker-compose-letsencrypt-nginx-proxy-companion
+# enjoy
+
+services:
+  yoyaremighty:
+    image: php:7.0.27-apache
+    container_name: youaremighty
+    restart: always
+    environment:
+      - VIRTUAL_HOST=${DOMAIN}
+      - LETSENCRYPT_HOST=${DOMAIN}
+      - LETSENCRYPT_EMAIL=${EMAIL}
+    ports:
+      - "8080:80"
+    volumes:
+      - ../public:/var/www/html:ro
+
+#networks:
+#  default:
+#    external:
+#      name: webproxy
