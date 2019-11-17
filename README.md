@@ -14,7 +14,7 @@
 * Mobile support
 * Mulilingual
 
-## Want to add your language
+## Want to add your language?
 
 Send me a Pull Request with a new language (create a language file
-based on the [existing ones]()).
+based on the [existing ones](https://github.com/fracz/youaremighty/tree/master/public/texts)).

@@ -31,7 +31,7 @@ $translations = json_decode(file_get_contents(__DIR__ . '/texts/' . $lang . '.js
     <div class="footer">
         <p class="text-center text-muted small"> Made with ❤️ for web by Wojciech Frącz, based on <a
                     href="http://www.aninote.com">aninote.com</a>.
-            <a href="https://github.com/fracz/youaremighty">More credits.</a></p>
+            <a href="https://github.com/fracz/youaremighty#credits">More credits.</a></p>
     </div>
 </div>
 
