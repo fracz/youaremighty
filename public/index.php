@@ -19,6 +19,38 @@ $translations = json_decode(file_get_contents(__DIR__ . '/texts/' . $lang . '.js
 </head>
 <body>
 
+
+<div id="credits" style="opacity: <?= $name ? 0 : 1 ?>">
+    <div class="github-stars">
+        <a href="https://github.com/fracz/youaremighty">
+            <img alt="GitHub stars"
+                 src="https://img.shields.io/github/stars/fracz/youaremighty?label=github&style=for-the-badge">
+        </a>
+    </div>
+
+    <div class="footer">
+        <p class="text-center text-muted small"> Made with ❤️ for web by Wojciech Frącz, based on <a
+                    href="http://www.aninote.com">aninote.com</a>.</p>
+    </div>
+</div>
+
+<div class="superman" id="superman">
+    <div class="superman--bodyAndLegs">
+        <div class="superman--symbol superman--symbol__red"></div>
+        <div class="superman--symbol superman--symbol__yellow"></div>
+    </div>
+    <div class="superman--arm superman--arm__left"></div>
+    <div class="superman--arm superman--arm__right"></div>
+    <div class="superman--neck">
+        <div class="superman--head">
+            <div class="superman--mouth"></div>
+            <div class="superman--eye superman--eye__left"></div>
+            <div class="superman--eye superman--eye__right"></div>
+        </div>
+    </div>
+    <div class="superman--cap"></div>
+</div>
+
 <div class="container">
     <div class="content" id="content">
         <div class="slideshow">
@@ -27,6 +59,7 @@ $translations = json_decode(file_get_contents(__DIR__ . '/texts/' . $lang . '.js
                     <?php if ($name): ?>
                         <h1><?= str_replace('{name}', $name, $translations['header']) ?></h1>
                         <a class="btn" onclick="play()" id="playButton">Play 🔊</a>
+
                     <?php else: ?>
                         <form action="" method="get" onsubmit="return goToMighty()">
                             <input type="text" placeholder="<?= $translations['yourName'] ?>" id="mightyName"
@@ -54,6 +87,7 @@ $translations = json_decode(file_get_contents(__DIR__ . '/texts/' . $lang . '.js
         </div>
     </div>
 </div>
+
 
 <script>
 
@@ -138,7 +172,7 @@ $translations = json_decode(file_get_contents(__DIR__ . '/texts/' . $lang . '.js
         [0, 1900, -100],
         [0, 1900, -100],
         [0, 1900, 500],
-        [1000, 99999999, 500],
+        [1000, 1000, 500],
 
     ];
 
@@ -193,9 +227,19 @@ $translations = json_decode(file_get_contents(__DIR__ . '/texts/' . $lang . '.js
     function nextSlide() {
         ++currentVisibleSlide;
         var slideTimes = times[currentVisibleSlide];
-        setTimeout(showSlide(currentVisibleSlide));
-        setTimeout(hideSlide(currentVisibleSlide), slideTimes[1]);
-        setTimeout(nextSlide, slideTimes[1] + slideTimes[2]);
+        if (slideTimes) {
+            setTimeout(showSlide(currentVisibleSlide));
+            setTimeout(nextSlide, slideTimes[1] + slideTimes[2]);
+            if (times[currentVisibleSlide + 1]) {
+                setTimeout(hideSlide(currentVisibleSlide), slideTimes[1]);
+            }
+        } else {
+            document.getElementById('superman').style.opacity = "1";
+            setTimeout(function () {
+                document.getElementById('credits').style.opacity = '1';
+                document.getElementById('credits').style.zIndex = '100';
+            }, 2000);
+        }
     }
 
     document.body.addEventListener('keyup', function (e) {
