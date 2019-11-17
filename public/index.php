@@ -17,22 +17,22 @@ $translations = json_decode(file_get_contents(__DIR__ . '/texts/' . $lang . '.js
     <title><?= trim(str_replace('{name}', $name, $translations['pageTitle']), ', ') ?></title>
     <link rel="stylesheet" href="/style.css">
 </head>
-<body>
+<body class="<?= $name ? 'site-slideshow' : 'site-form' ?>">
 
+<div class="github-stars" id="github-stars" style="opacity: <?= $name ? 0 : 1 ?>">
+    <a href="https://github.com/fracz/youaremighty">
+        <img alt="GitHub stars"
+             src="https://img.shields.io/github/stars/fracz/youaremighty?label=github&style=for-the-badge">
+    </a>
+</div>
 
-<div id="credits" style="opacity: <?= $name ? 0 : 1 ?>">
-    <div class="github-stars">
-        <a href="https://github.com/fracz/youaremighty">
-            <img alt="GitHub stars"
-                 src="https://img.shields.io/github/stars/fracz/youaremighty?label=github&style=for-the-badge">
-        </a>
-    </div>
-
-    <div class="footer">
-        <p class="text-center text-muted small"> Made with ❤️ for web by Wojciech Frącz, based on <a
-                    href="http://www.aninote.com">aninote.com</a>.
-            <a href="https://github.com/fracz/youaremighty#credits">More credits.</a></p>
-    </div>
+<div class="footer" id="footer" style="opacity: <?= $name ? 0 : 1 ?>">
+    <p class="your-own"><a href="/?lang=<?= $lang ?>"><?= $translations['createYourOwn'] ?></a></p>
+    <p>
+        Made with ❤️ for web by Wojciech Frącz, based on
+        <a href="http://www.aninote.com">aninote.com</a>.
+        <a href="https://github.com/fracz/youaremighty#credits">More credits.</a>
+    </p>
 </div>
 
 <div class="superman" id="superman">
@@ -237,8 +237,8 @@ $translations = json_decode(file_get_contents(__DIR__ . '/texts/' . $lang . '.js
         } else {
             document.getElementById('superman').style.opacity = "1";
             setTimeout(function () {
-                document.getElementById('credits').style.opacity = '1';
-                document.getElementById('credits').style.zIndex = '100';
+                document.getElementById('footer').style.opacity = '1';
+                document.getElementById('github-stars').style.opacity = '1';
             }, 2000);
         }
     }
