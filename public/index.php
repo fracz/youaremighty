@@ -210,6 +210,7 @@ $translations = json_decode(file_get_contents(__DIR__ . '/texts/' . $lang . '.js
 
     <?php endif; ?>
 
+    audio.load();
 
 </script>
 </body>
