@@ -26,11 +26,12 @@ $translations = json_decode(file_get_contents(__DIR__ . '/texts/' . $lang . '.js
                 <div>
                     <?php if ($name): ?>
                         <h1><?= str_replace('{name}', $name, $translations['header']) ?></h1>
-                        <h3>Are you ready?</h3>
-                        <button onclick="play()" id="playButton">Play 🔊</button>
+                        <a class="btn" onclick="play()" id="playButton">Play 🔊</a>
                     <?php else: ?>
                         <form action="" method="get" onsubmit="return goToMighty()">
-                            <input type="text" placeholder="Your name" id="mightyName">
+                            <input type="text" placeholder="<?= $translations['yourName'] ?>" id="mightyName"
+                                   autocapitalize="off"
+                                   autocomplete="off" autofocus>
                             <div class="langs" id="langs">
                                 <?php
                                 $langs = scandir(__DIR__ . '/texts');
@@ -39,13 +40,13 @@ $translations = json_decode(file_get_contents(__DIR__ . '/texts/' . $lang . '.js
                                         continue;
                                     }
                                     ?>
-                                    <button type="button" onclick="setLang('<?= $match[1] ?>')"
-                                            id="lang-btn-<?= $match[1] ?>">
+                                    <a class="btn" href="/?lang=<?= $match[1] ?>"
+                                       id="lang-btn-<?= $match[1] ?>">
                                         <?= strtoupper($match[1]) ?>
-                                    </button>
+                                    </a>
                                 <?php endforeach; ?>
                             </div>
-                            <button type="submit">Create!</button>
+                            <button class="btn" type="submit"><?= $translations['create'] ?></button>
                         </form>
                     <?php endif; ?>
                 </div>
@@ -57,12 +58,9 @@ $translations = json_decode(file_get_contents(__DIR__ . '/texts/' . $lang . '.js
 <script>
 
     var audio = new Audio('/audio.mp3');
+    audio.load();
 
     <?php if ($name): ?>
-
-    // audio.addEventListener('canplaythrough', function () {
-    //     document.getElementById('playButton').style.visibility = 'visible';
-    // }, false);
 
     var texts = <?=json_encode($translations['texts'])?>;
     texts[3] = '<div class="you"><?=$name?></div>' + texts[3];
@@ -99,6 +97,9 @@ $translations = json_decode(file_get_contents(__DIR__ . '/texts/' . $lang . '.js
             playing = true;
             audio.play();
             startSlidesOnMusicStart();
+            setTimeout(function () {
+                document.getElementById('playButton').innerHTML = '<?=$translations['waitForIt']?>';
+            }, 1000);
         }
     }
 
@@ -214,16 +215,13 @@ $translations = json_decode(file_get_contents(__DIR__ . '/texts/' . $lang . '.js
 
     setLang(lang);
 
-
     function goToMighty() {
         var name = document.getElementById('mightyName').value;
-        window.location.assign('/' + lang + '/' + encodeURIComponent(name));
+        window.location.assign('/' + lang + '/' + encodeURIComponent(name || 'You'));
         return false;
     }
 
     <?php endif; ?>
-
-    audio.load();
 
 </script>
 </body>
