@@ -6,10 +6,6 @@ html, body {
 }
 
 body {
-    padding: 20px;
-}
-
-body {
     background: black;
     font-family: Arial;
     color: white;
@@ -21,9 +17,23 @@ body {
 
 .content {
     text-align: center;
+    width: 100%;
+    height: 100%;
 }
 
 .container {
+    width: 100%;
+    height: 100%;
+
+}
+
+.slideshow {
+    width: 100%;
+    height: 100%;
+}
+
+.slideshow > .slide {
+    position: absolute;
     width: 100%;
     height: 100%;
     display: flex;
@@ -31,12 +41,12 @@ body {
     align-items: center;
 }
 
-.slideshow > .slide, .slideshow > .slide span {
+.slideshow > .slide > div, .slideshow > .slide span {
     transition-duration: 1s;
     transition-property: opacity, transform;
     transition-timing-function: ease;
     opacity: 0;
-    display: none;
+    /*display: none;*/
     font-size: 60px;
     font-weight: bold;
 }
@@ -51,10 +61,51 @@ body {
     font-size: 1.1em;
 }
 
-.slide.fast {
-    transition-duration: 0.35s;
+.slide .fast {
+    transition-duration: 0.35s !important;
+    transition-timing-function: ease-in !important;
 }
 
-.slide17 {
-    margin-top: -100px;
+.slide#slide0 > div {
+    opacity: 1;
+}
+
+.slide#slide4 > div > span {
+    display: block;
+    height: 0;
+    overflow: visible;
+}
+
+#slide18 > div {
+    margin-top: -3em;
+}
+
+#slide19 > div {
+    margin-top: -1em;
+}
+
+#slide20 > div {
+    margin-top: 1em;
+}
+
+#slide21 > div {
+    margin-top: 3em;
+}
+
+.you {
+    font-size: 1.5em;
+    color: yellow;
+    /*margin-bottom: 0.5em;*/
+}
+
+@media (max-width: 420px) {
+    .slideshow > .slide > div, .slideshow > .slide span {
+        font-size: 30px;
+    }
+}
+
+@media (max-width: 720px) {
+    .slideshow > .slide > div, .slideshow > .slide span {
+        font-size: 40px;
+    }
 }
