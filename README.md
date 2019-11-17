@@ -18,3 +18,9 @@
 
 Send me a Pull Request with a new language (create a language file
 based on the [existing ones](https://github.com/fracz/youaremighty/tree/master/public/texts)).
+
+## URL creation rules
+
+* `https://youaremighty.fracz.com/Name` -> Name in EN
+* `https://youaremighty.fracz.com/pl/Name` -> Name in PL
+* `https://mozeszwszystko.fracz.pl/Name` -> Name in PL

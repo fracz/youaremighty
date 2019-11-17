@@ -269,5 +269,11 @@ $translations = json_decode(file_get_contents(__DIR__ . '/texts/' . $lang . '.js
     <?php endif; ?>
 
 </script>
+
+<?php
+if (file_exists(__DIR__ . '/custom.php')) {
+    include __DIR__ . '/custom.php';
+}
+?>
 </body>
 </html>
