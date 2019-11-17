@@ -1,6 +1,9 @@
 <?php
 $name = htmlspecialchars($_GET['name'] ?? '');
 $defaultLang = strtolower(end(explode('.', $_SERVER['HTTP_HOST'])));
+if ($defaultLang == 'com') {
+    $defaultLang = 'en';
+}
 $lang = $_GET['lang'] ?? $defaultLang;
 if (!file_exists(__DIR__ . '/texts/' . basename($lang) . '.json')) {
     $lang = 'en';
@@ -27,7 +30,11 @@ $translations = json_decode(file_get_contents(__DIR__ . '/texts/' . $lang . '.js
 </div>
 
 <div class="footer" id="footer" style="opacity: <?= $name ? 0 : 1 ?>">
-    <p class="your-own"><a href="/?lang=<?= $lang ?>"><?= $translations['createYourOwn'] ?></a></p>
+    <p class="your-own">
+        <a href="/<?= $lang !== $defaultLang ? '?lang=' . $lang : '' ?>">
+            <?= $translations['createYourOwn'] ?>
+        </a>
+    </p>
     <p>
         Made with ❤️ for web by Wojciech Frącz, based on
         <a href="http://www.aninote.com">aninote.com</a>.
@@ -74,7 +81,7 @@ $translations = json_decode(file_get_contents(__DIR__ . '/texts/' . $lang . '.js
                                         continue;
                                     }
                                     ?>
-                                    <a class="btn" href="/?lang=<?= $match[1] ?>"
+                                    <a class="btn" href="/<?= $match[1] !== $defaultLang ? '?lang=' . $match[1] : '' ?>"
                                        id="lang-btn-<?= $match[1] ?>">
                                         <?= strtoupper($match[1]) ?>
                                     </a>
@@ -250,19 +257,11 @@ $translations = json_decode(file_get_contents(__DIR__ . '/texts/' . $lang . '.js
     // });
 
     <?php else: ?>
-    var lang = '<?=$lang?>';
-
-    function setLang(newLang) {
-        document.getElementById('lang-btn-' + lang).classList.remove('active');
-        lang = newLang;
-        document.getElementById('lang-btn-' + lang).classList.add('active');
-    }
-
-    setLang(lang);
+    document.getElementById('lang-btn-<?=$lang?>').classList.add('active');
 
     function goToMighty() {
         var name = document.getElementById('mightyName').value;
-        window.location.assign('/' + lang + '/' + encodeURIComponent(name || 'You'));
+        window.location.assign(<?= $lang === $defaultLang ? '' : "'/$lang' + "?> '/' + encodeURIComponent(name || 'You'));
         return false;
     }
 
