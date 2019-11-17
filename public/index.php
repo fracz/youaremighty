@@ -27,7 +27,7 @@ $translations = json_decode(file_get_contents(__DIR__ . '/texts/' . $lang . '.js
                     <?php if ($name): ?>
                         <h1><?= str_replace('{name}', $name, $translations['header']) ?></h1>
                         <h3>Are you ready?</h3>
-                        <button onclick="play()" id="playButton" style="visibility: hidden">Play 🔊</button>
+                        <button onclick="play()" id="playButton">Play 🔊</button>
                     <?php else: ?>
                         <form action="" method="get" onsubmit="return goToMighty()">
                             <input type="text" placeholder="Your name" id="mightyName">
@@ -59,9 +59,9 @@ $translations = json_decode(file_get_contents(__DIR__ . '/texts/' . $lang . '.js
 
     <?php if ($name): ?>
 
-    audio.addEventListener('canplaythrough', function () {
-        document.getElementById('playButton').style.visibility = 'visible';
-    }, false);
+    // audio.addEventListener('canplaythrough', function () {
+    //     document.getElementById('playButton').style.visibility = 'visible';
+    // }, false);
 
     var texts = <?=json_encode($translations['texts'])?>;
     texts[3] = '<div class="you"><?=$name?></div>' + texts[3];
@@ -98,9 +98,14 @@ $translations = json_decode(file_get_contents(__DIR__ . '/texts/' . $lang . '.js
             playing = true;
             content.innerHTML = "";
             content.appendChild(slideshow);
-            audio.play();
-            setTimeout(hideSlide(0));
-            setTimeout(nextSlide, 3200);
+            audio.play()
+                .then(function () {
+                    setTimeout(hideSlide(0));
+                    setTimeout(nextSlide, 3200);
+                })
+                .catch(function (e) {
+                    alert(e);
+                });
         }
     }
 
@@ -149,7 +154,9 @@ $translations = json_decode(file_get_contents(__DIR__ . '/texts/' . $lang . '.js
         return function () {
             var slide = slideshow.children[slideNumber].children[0];
             slide.style.opacity = '1';
-            setTimeout(() => slide.style.opacity = '0');
+            setTimeout(function () {
+                slide.style.opacity = '0';
+            });
             if (slideNumber === 4) {
                 slide.style.transform = 'scale(8.0)';
                 slide.getElementsByTagName('span')[0].style.opacity = '0';
@@ -165,8 +172,10 @@ $translations = json_decode(file_get_contents(__DIR__ . '/texts/' . $lang . '.js
             var slide = slideshow.children[slideNumber].children[0];
             // slide.style.display = 'block';
             slide.style.opacity = '0';
-            setTimeout(() => slide.style.opacity = '1');
-            setTimeout(() => slide.style.transform = 'scale(1.0)');
+            setTimeout(function () {
+                slide.style.opacity = '1';
+                slide.style.transform = 'scale(1.0)';
+            });
             var span = slide.getElementsByTagName('span')[0];
             if (span) {
                 setTimeout(function () {
