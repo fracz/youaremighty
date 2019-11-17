@@ -19,6 +19,8 @@ $translations = json_decode(file_get_contents(__DIR__ . '/texts/' . $lang . '.js
     <meta name="theme-color" content="#1e2327">
     <title><?= trim(str_replace('{name}', $name, $translations['pageTitle']), ', ') ?></title>
     <link rel="stylesheet" href="/style.css">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
 </head>
 <body class="<?= $name ? 'site-slideshow' : 'site-form' ?>">
 
