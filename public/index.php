@@ -79,7 +79,7 @@
 
     ];
 
-    var startFromSlide = 4;
+    var startFromSlide = 0;
 
     if (startFromSlide) {
         var timesSums = times.map((t) => t[1] + t[2]);
