@@ -1,6 +1,7 @@
 {
   "pageTitle": "{name}, Możesz wszystko!",
   "header": "Cześć {name}!",
+  "play": "Start",
   "yourName": "Twoje imię",
   "create": "Stwórz!",
   "waitForIt": "Jeszcze chwilkę...",

@@ -1,6 +1,7 @@
 {
   "pageTitle": "{name}, You Are Mighty!",
   "header": "Hi {name}!",
+  "play": "Play",
   "yourName": "Your name",
   "create": "Create!",
   "waitForIt": "Wait for it...",

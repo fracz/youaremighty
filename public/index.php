@@ -68,7 +68,7 @@ $translations = json_decode(file_get_contents(__DIR__ . '/texts/' . $lang . '.js
                 <div>
                     <?php if ($name): ?>
                         <h1><?= str_replace('{name}', $name, $translations['header']) ?></h1>
-                        <a class="btn" onclick="play()" id="playButton">Play 🔊</a>
+                        <a class="btn" onclick="play()" id="playButton"><?=$translations['play']?> 🔊</a>
 
                     <?php else: ?>
                         <form action="" method="get" onsubmit="return goToMighty()">
