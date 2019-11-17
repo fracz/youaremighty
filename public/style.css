@@ -54,3 +54,7 @@ body {
 .slide.fast {
     transition-duration: 0.35s;
 }
+
+.slide17 {
+    margin-top: -100px;
+}

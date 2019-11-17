@@ -38,12 +38,13 @@
 
     for (var i = 0; i < texts.length; i++) {
         var slide = document.createElement('div');
-        slide.className = 'slide';
+        slide.classList.add('slide');
+        slide.classList.add('slide' + i);
         slide.innerHTML = texts[i];
         slideshow.appendChild(slide);
     }
 
-    var currentVisibleSlide = 0;
+    var currentVisibleSlide = 14;
 
     function play() {
         content.innerHTML = "";
@@ -59,27 +60,26 @@
         [900, 2850, 2300],
         [900, 2600, 1700],
         [2200, 4400, 700],
-        [0, 900, 300],
-        [0, 900, 300],
-        [0, 900, 300],
-        [0, 900, 300],
-        [0, 900, 300],
-        [0, 900, 300],
-        [0, 900, 300],
-        [0, 900, 300],
-        [0, 900, 300],
-        [0, 900, 300],
-        [0, 900, 300],
-        [0, 900, 300],
-        [0, 900, 300],
-        [0, 900, 300],
-        [0, 900, 300],
-        [0, 900, 300],
-        [0, 900, 300],
+        [0, 950, 250],
+        [0, 950, 250],
+        [0, 950, 250],
+        [0, 950, 250],
+        [0, 950, 250],
+        [0, 950, 250],
+        [0, 950, 250],
+        [0, 950, 250],
+        [0, 950, 250],
+        [0, 950, 250],
+        [0, 950, 250],
+        [0, 950, 250],
+        [0, 950, -500],
+        [0, 2050, -500],
+        [0, 1250, -500],
+        [0, 1250, -500],
 
     ];
 
-    var startFromSlide = 0;
+    var startFromSlide = 15;
 
     if (startFromSlide) {
         var timesSums = times.map((t) => t[1] + t[2]);
@@ -120,8 +120,8 @@
                     span.style.opacity = '1';
                 }, times[currentVisibleSlide][0]);
             }
-            setTimeout(nextSlide, times[currentVisibleSlide][1]);
         }, times[currentVisibleSlide][2]);
+        setTimeout(nextSlide, times[currentVisibleSlide][2] + times[currentVisibleSlide + 1][1]);
     }
 
 </script>
