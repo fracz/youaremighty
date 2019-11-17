@@ -1,5 +1,5 @@
 <?php
-$name = htmlspecialchars($_GET['name'] ?? 'Noname');
+$name = htmlspecialchars($_GET['name'] ?? '');
 $defaultLang = strtolower(end(explode('.', $_SERVER['HTTP_HOST'])));
 $lang = $_GET['lang'] ?? $defaultLang;
 if (!file_exists(__DIR__ . '/texts/' . basename($lang) . '.json')) {
@@ -14,7 +14,7 @@ $translations = json_decode(file_get_contents(__DIR__ . '/texts/' . $lang . '.js
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="theme-color" content="#1e2327">
-    <title><?= str_replace('{name}', $name, $translations['pageTitle']) ?></title>
+    <title><?= trim(str_replace('{name}', $name, $translations['pageTitle']), ', ') ?></title>
     <link rel="stylesheet" href="/style.css">
 </head>
 <body>
@@ -24,9 +24,30 @@ $translations = json_decode(file_get_contents(__DIR__ . '/texts/' . $lang . '.js
         <div class="slideshow">
             <div class="slide" id="slide0">
                 <div>
-                    <h1><?= str_replace('{name}', $name, $translations['header']) ?></h1>
-                    <h3>Are you ready?</h3>
-                    <button onclick="play()" id="playButton" style="visibility: hidden">Play 🔊</button>
+                    <?php if ($name): ?>
+                        <h1><?= str_replace('{name}', $name, $translations['header']) ?></h1>
+                        <h3>Are you ready?</h3>
+                        <button onclick="play()" id="playButton" style="visibility: hidden">Play 🔊</button>
+                    <?php else: ?>
+                        <form action="" method="get" onsubmit="return goToMighty()">
+                            <input type="text" placeholder="Your name" id="mightyName">
+                            <div class="langs" id="langs">
+                                <?php
+                                $langs = scandir(__DIR__ . '/texts');
+                                foreach ($langs as $langFile):
+                                    if (!preg_match('/([a-z]+)\.json/', $langFile, $match)) {
+                                        continue;
+                                    }
+                                    ?>
+                                    <button type="button" onclick="setLang('<?= $match[1] ?>')"
+                                            id="lang-btn-<?= $match[1] ?>">
+                                        <?= strtoupper($match[1]) ?>
+                                    </button>
+                                <?php endforeach; ?>
+                            </div>
+                            <button type="submit">Create!</button>
+                        </form>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>
@@ -36,13 +57,15 @@ $translations = json_decode(file_get_contents(__DIR__ . '/texts/' . $lang . '.js
 <script>
     var audio = new Audio('/audio.mp3');
 
+    <?php if ($name): ?>
+
     audio.addEventListener('canplaythrough', function () {
         document.getElementById('playButton').style.visibility = 'visible';
     }, false);
 
     var texts = <?=json_encode($translations['texts'])?>;
-    texts[3] = '<div class="you"><?=$name?>></div>' + texts[3];
-    texts[21] = '<div class="you"><?=$name?>></div>' + texts[21];
+    texts[3] = '<div class="you"><?=$name?></div>' + texts[3];
+    texts[21] = '<div class="you"><?=$name?></div>' + texts[21];
 
     var content = document.getElementById('content');
     var slideshow = document.createElement('div');
@@ -68,13 +91,17 @@ $translations = json_decode(file_get_contents(__DIR__ . '/texts/' . $lang . '.js
     }
 
     var currentVisibleSlide = 0;
+    var playing = false;
 
     function play() {
-        content.innerHTML = "";
-        content.appendChild(slideshow);
-        audio.play();
-        setTimeout(hideSlide(0));
-        setTimeout(nextSlide, 3200);
+        if (!playing) {
+            playing = true;
+            content.innerHTML = "";
+            content.appendChild(slideshow);
+            audio.play();
+            setTimeout(hideSlide(0));
+            setTimeout(nextSlide, 3200);
+        }
     }
 
     var times = [
@@ -155,36 +182,34 @@ $translations = json_decode(file_get_contents(__DIR__ . '/texts/' . $lang . '.js
         setTimeout(showSlide(currentVisibleSlide));
         setTimeout(hideSlide(currentVisibleSlide), slideTimes[1]);
         setTimeout(nextSlide, slideTimes[1] + slideTimes[2]);
-        //
-        // slideshow.children[currentVisibleSlide].style.opacity = '1';
-        // slideshow.children[currentVisibleSlide].style.display = 'block';
-        // setTimeout(() => slideshow.children[currentVisibleSlide].style.opacity = '0');
-        // if (currentVisibleSlide === 4) {
-        //     slideshow.children[currentVisibleSlide].style.transform = 'scale(8.0)';
-        // } else if (currentVisibleSlide > 4) {
-        //     slideshow.children[currentVisibleSlide].style.transform = 'scale(0.5)';
-        // }
-        // setTimeout(function () {
-        //     slideshow.children[currentVisibleSlide].style.display = 'none';
-        //     ++currentVisibleSlide;
-        //     var currentSlide = slideshow.children[currentVisibleSlide];
-        //     currentSlide.style.display = 'block';
-        //     currentSlide.style.opacity = '0';
-        //     if (currentVisibleSlide >= 5) {
-        //         slideshow.children[currentVisibleSlide].style.transform = 'scale(6.0)';
-        //         slideshow.children[currentVisibleSlide].classList.add('fast');
-        //     }
-        //     setTimeout(() => currentSlide.style.opacity = '1', 20);
-        //     setTimeout(() => currentSlide.style.transform = 'scale(1.0)', 20);
-        //     var span = currentSlide.getElementsByTagName('span')[0];
-        //     if (span) {
-        //         setTimeout(function () {
-        //             span.style.opacity = '1';
-        //         }, times[currentVisibleSlide][0]);
-        //     }
-        // }, times[currentVisibleSlide][2]);
-        // setTimeout(nextSlide, times[currentVisibleSlide][2] + times[currentVisibleSlide + 1][1]);
     }
+
+    document.body.addEventListener('keyup', function (e) {
+        if (e.key === 'Enter') {
+            play();
+        }
+    });
+
+    <?php else: ?>
+    var lang = '<?=$lang?>';
+
+    function setLang(newLang) {
+        document.getElementById('lang-btn-' + lang).classList.remove('active');
+        lang = newLang;
+        document.getElementById('lang-btn-' + lang).classList.add('active');
+    }
+
+    setLang(lang);
+
+
+    function goToMighty() {
+        var name = document.getElementById('mightyName').value;
+        window.location.assign('/' + lang + '/' + encodeURIComponent(name));
+        return false;
+    }
+
+    <?php endif; ?>
+
 
 </script>
 </body>
