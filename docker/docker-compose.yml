@@ -13,12 +13,12 @@ services:
       - VIRTUAL_HOST=${DOMAIN}
       - LETSENCRYPT_HOST=${DOMAIN}
       - LETSENCRYPT_EMAIL=${EMAIL}
-    ports:
-      - "8080:80"
+    #    ports:
+    #      - "8080:80"
     volumes:
       - ../public:/var/www/html:ro
 
-#networks:
-#  default:
-#    external:
-#      name: webproxy
+networks:
+  default:
+    external:
+      name: webproxy
