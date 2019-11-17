@@ -243,11 +243,11 @@ $translations = json_decode(file_get_contents(__DIR__ . '/texts/' . $lang . '.js
         }
     }
 
-    document.body.addEventListener('keyup', function (e) {
-        if (e.key === 'Enter') {
-            play();
-        }
-    });
+    // document.body.addEventListener('keyup', function (e) {
+    //     if (e.key === 'Enter') {
+    //         play();
+    //     }
+    // });
 
     <?php else: ?>
     var lang = '<?=$lang?>';
