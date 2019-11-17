@@ -4,7 +4,8 @@
 
 ## Credits
 
-* App idea: [aninote.com](http://aninote.com/).
+* The app: [me](https://github.com/fracz)
+* App idea: [aninote.com](http://aninote.com/)
 * Music: E Nomine - Schwarze Sonne
 * Superman CSS animation: [DEGRYSE Alexis](https://codepen.io/twogrey/pen/Qpgqbq)
 
@@ -16,7 +17,7 @@
 
 ## Want to add your language?
 
-Send me a Pull Request with a new language (create a language file
+Send me a Pull Request with the new language (create a language file
 based on the [existing ones](https://github.com/fracz/youaremighty/tree/master/public/texts)).
 
 ## URL creation rules

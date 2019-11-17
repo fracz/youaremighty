@@ -35,7 +35,7 @@ $translations = json_decode(file_get_contents(__DIR__ . '/texts/' . $lang . '.js
     </p>
 </div>
 
-<div class="superman" id="superman">
+<div class="superman" id="superman" style="opacity: 0">
     <div class="superman--bodyAndLegs">
         <div class="superman--symbol superman--symbol__red"></div>
         <div class="superman--symbol superman--symbol__yellow"></div>
