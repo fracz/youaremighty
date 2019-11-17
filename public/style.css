@@ -58,7 +58,7 @@ body {
 
 .slide em {
     font-style: normal;
-    color: blue;
+    color: #0074D9;
     font-size: 1.1em;
 }
 
@@ -177,6 +177,7 @@ div.footer {
     width: 100%;
     color: #BBB;
     font-size: 13px;
+    background: rgba(17, 17, 17, .5);
 }
 
 div.footer a {
