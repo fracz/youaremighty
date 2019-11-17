@@ -1,5 +1,5 @@
 <?php
-$name = $_GET['name'] ?? 'Noname';
+$name = htmlspecialchars($_GET['name'] ?? 'Noname');
 $defaultLang = strtolower(end(explode('.', $_SERVER['HTTP_HOST'])));
 $lang = $_GET['lang'] ?? $defaultLang;
 if (!file_exists(__DIR__ . '/texts/' . basename($lang) . '.json')) {
@@ -41,8 +41,8 @@ $translations = json_decode(file_get_contents(__DIR__ . '/texts/' . $lang . '.js
     }, false);
 
     var texts = <?=json_encode($translations['texts'])?>;
-    texts[3] = '<div class="you">Olimp</div>' + texts[3];
-    texts[21] = '<div class="you">Olimp</div>' + texts[21];
+    texts[3] = '<div class="you"><?=$name?>></div>' + texts[3];
+    texts[21] = '<div class="you"><?=$name?>></div>' + texts[21];
 
     var content = document.getElementById('content');
     var slideshow = document.createElement('div');
