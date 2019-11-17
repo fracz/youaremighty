@@ -55,6 +55,7 @@ $translations = json_decode(file_get_contents(__DIR__ . '/texts/' . $lang . '.js
 </div>
 
 <script>
+
     var audio = new Audio('/audio.mp3');
 
     <?php if ($name): ?>
@@ -96,16 +97,19 @@ $translations = json_decode(file_get_contents(__DIR__ . '/texts/' . $lang . '.js
     function play() {
         if (!playing) {
             playing = true;
+            audio.play();
+            startSlidesOnMusicStart();
+        }
+    }
+
+    function startSlidesOnMusicStart() {
+        if (audio.currentTime > 0) {
             content.innerHTML = "";
             content.appendChild(slideshow);
-            audio.play()
-                .then(function () {
-                    setTimeout(hideSlide(0));
-                    setTimeout(nextSlide, 3200);
-                })
-                .catch(function (e) {
-                    alert(e);
-                });
+            setTimeout(hideSlide(0));
+            setTimeout(nextSlide, 3200);
+        } else {
+            setTimeout(startSlidesOnMusicStart, 100);
         }
     }
 
@@ -137,18 +141,18 @@ $translations = json_decode(file_get_contents(__DIR__ . '/texts/' . $lang . '.js
 
     ];
 
-    var startFromSlide = 0;
-
-    if (startFromSlide) {
-        var timesSums = times.map((t) => t[1] + t[2]);
-        var offset = 0;
-        for (var j = 0; j < startFromSlide; j++) {
-            offset += times[j][1] + times[j][2];
-        }
-        offset -= times[startFromSlide - 1][2];
-        audio.currentTime = offset / 1000;
-        currentVisibleSlide = startFromSlide - 1;
-    }
+    // var startFromSlide = 0;
+    //
+    // if (startFromSlide) {
+    //     var timesSums = times.map((t) => t[1] + t[2]);
+    //     var offset = 0;
+    //     for (var j = 0; j < startFromSlide; j++) {
+    //         offset += times[j][1] + times[j][2];
+    //     }
+    //     offset -= times[startFromSlide - 1][2];
+    //     audio.currentTime = offset / 1000;
+    //     currentVisibleSlide = startFromSlide - 1;
+    // }
 
     function hideSlide(slideNumber) {
         return function () {
