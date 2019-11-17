@@ -2,6 +2,11 @@ html, body {
     height: 100%;
     padding: 0;
     margin: 0;
+    overflow: hidden;
+}
+
+body {
+    padding: 20px;
 }
 
 body {
@@ -28,11 +33,11 @@ body {
 
 .slideshow > .slide, .slideshow > .slide span {
     transition-duration: 1s;
-    transition-property: opacity;
+    transition-property: opacity, transform;
     transition-timing-function: ease;
     opacity: 0;
     display: none;
-    font-size: 30px;
+    font-size: 60px;
     font-weight: bold;
 }
 
@@ -44,4 +49,8 @@ body {
     font-style: normal;
     color: blue;
     font-size: 1.1em;
+}
+
+.slide.fast {
+    transition-duration: 0.35s;
 }

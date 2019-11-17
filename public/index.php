@@ -5,7 +5,8 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <meta name="theme-color" content="#1e2327">
+    <title>Olimp, You Are Mighty!</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -51,26 +52,76 @@
         nextSlide();
     }
 
+    var times = [
+        // 2nd part delay, current text visible, next slide gap
+        [0, 0, 3200],
+        [900, 2750, 1700],
+        [900, 2850, 2300],
+        [900, 2600, 1700],
+        [2200, 4400, 700],
+        [0, 900, 300],
+        [0, 900, 300],
+        [0, 900, 300],
+        [0, 900, 300],
+        [0, 900, 300],
+        [0, 900, 300],
+        [0, 900, 300],
+        [0, 900, 300],
+        [0, 900, 300],
+        [0, 900, 300],
+        [0, 900, 300],
+        [0, 900, 300],
+        [0, 900, 300],
+        [0, 900, 300],
+        [0, 900, 300],
+        [0, 900, 300],
+        [0, 900, 300],
+
+    ];
+
+    var startFromSlide = 4;
+
+    if (startFromSlide) {
+        var timesSums = times.map((t) => t[1] + t[2]);
+        var offset = 0;
+        for (var j = 0; j < startFromSlide; j++) {
+            offset += times[j][1] + times[j][2];
+        }
+        offset -= times[startFromSlide - 1][2];
+        audio.currentTime = offset / 1000;
+        currentVisibleSlide = startFromSlide - 1;
+    }
+
     function nextSlide() {
         slideshow.children[currentVisibleSlide].style.opacity = '1';
         slideshow.children[currentVisibleSlide].style.display = 'block';
         setTimeout(() => slideshow.children[currentVisibleSlide].style.opacity = '0');
+        if (currentVisibleSlide === 4) {
+            slideshow.children[currentVisibleSlide].style.transform = 'scale(8.0)';
+        }
+        else if (currentVisibleSlide > 4) {
+            slideshow.children[currentVisibleSlide].style.transform = 'scale(0.5)';
+        }
         setTimeout(function () {
             slideshow.children[currentVisibleSlide].style.display = 'none';
             ++currentVisibleSlide;
             var currentSlide = slideshow.children[currentVisibleSlide];
             currentSlide.style.display = 'block';
             currentSlide.style.opacity = '0';
+            if (currentVisibleSlide >= 5) {
+                slideshow.children[currentVisibleSlide].style.transform = 'scale(6.0)';
+                slideshow.children[currentVisibleSlide].classList.add('fast');
+            }
             setTimeout(() => currentSlide.style.opacity = '1', 20);
+            setTimeout(() => currentSlide.style.transform = 'scale(1.0)', 20);
             var span = currentSlide.getElementsByTagName('span')[0];
             if (span) {
                 setTimeout(function () {
-                    console.log("aa");
                     span.style.opacity = '1';
-                }, 1000);
+                }, times[currentVisibleSlide][0]);
             }
-            setTimeout(nextSlide, 3000);
-        }, 1000);
+            setTimeout(nextSlide, times[currentVisibleSlide][1]);
+        }, times[currentVisibleSlide][2]);
     }
 
 </script>
