@@ -8,7 +8,7 @@ services:
   yoyaremighty:
     build: .
     container_name: youaremighty
-    restart: always
+    restart: unless-stopped
     environment:
       - VIRTUAL_HOST=${DOMAIN}
       - LETSENCRYPT_HOST=${DOMAIN}
