@@ -273,7 +273,7 @@
 
         function goToMighty() {
             var name = document.getElementById('mightyName').value;
-            window.location.assign('/youaremighty/' + (lang === DEFAULT_LANG ? '' : '/' + lang) + '/' + encodeURIComponent(name || 'You'));
+            window.location.assign('/youaremighty' + (lang === DEFAULT_LANG ? '' : '/' + lang) + '/' + encodeURIComponent(name || 'You'));
             return false;
         }
 
