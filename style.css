@@ -15,6 +15,14 @@ body {
     box-sizing: border-box;
 }
 
+.invisible {
+    opacity: 0;
+}
+
+.site-slideshow .form-mode {
+    display: none;
+}
+
 .content {
     text-align: center;
     width: 100%;
