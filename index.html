@@ -104,7 +104,7 @@
     document.getElementById('mightyName').placeholder = TEXTS[lang].yourName;
     document.getElementById('play-text').innerText = TEXTS[lang].play;
     document.getElementById('create-your-own').innerText = TEXTS[lang].createYourOwn;
-    document.getElementById('create-your-own').href = lang === DEFAULT_LANG ? '/' : '/' + lang;
+    document.getElementById('create-your-own').href = '/youaremighty' + (lang === DEFAULT_LANG ? '/' : '/' + lang);
 
     var audio = new Audio('/youaremighty/audio.mp3');
     audio.load();
