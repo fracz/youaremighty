@@ -1,8 +1,0 @@
-RewriteEngine On
-
-RewriteCond %{REQUEST_FILENAME} -f
-RewriteRule ^ - [L]
-
-RewriteRule ^([^/]+)$ index.php?name=$1 [QSA,L]
-
-RewriteRule ^([^/]+)/([^/]+)$ index.php?lang=$1&name=$2 [QSA,L]
