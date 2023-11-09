@@ -23,6 +23,10 @@ body {
     display: none;
 }
 
+.site-form .slideshow-mode {
+    display: none;
+}
+
 .content {
     text-align: center;
     width: 100%;

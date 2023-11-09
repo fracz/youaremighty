@@ -7,11 +7,10 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="theme-color" content="#1e2327">
     <title>You Are Mighty!</title>
-    <script src="lang.js"></script>
-    <link rel="stylesheet" href="style.css">
+    <script src="/youaremighty/lang.js"></script>
+    <link rel="stylesheet" href="/youaremighty/style.css">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <base href="/youaremighty/"/>
 </head>
 <body class="invisible">
 
@@ -98,7 +97,7 @@
     var langButtons = []
     for (var l in TEXTS) {
         var href = l === DEFAULT_LANG ? '' : l;
-        langButtons.push('<a class="btn" href="' + href + '" id="lang-btn-' + l + '">' + l.toUpperCase() + '</a>');
+        langButtons.push('<a class="btn" href="/youaremighty/' + href + '" id="lang-btn-' + l + '">' + l.toUpperCase() + '</a>');
     }
     document.getElementById('langs').innerHTML = (langButtons.join(''));
 
@@ -275,7 +274,7 @@
 
         function goToMighty() {
             var name = document.getElementById('mightyName').value;
-            window.location.assign((lang === DEFAULT_LANG ? '' : '/' + lang) + '/' + encodeURIComponent(name || 'You'));
+            window.location.assign('/youaremighty/' + (lang === DEFAULT_LANG ? '' : '/' + lang) + '/' + encodeURIComponent(name || 'You'));
             return false;
         }
 
