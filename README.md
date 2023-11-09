@@ -1,6 +1,6 @@
 # You Are Mighty!
 
-[https://youaremighty.fracz.com](https://youaremighty.fracz.com)
+[https://fracz.github.io/youaremighty](https://fracz.github.io/youaremighty)
 
 ## Credits
 
@@ -22,6 +22,5 @@ based on the [existing ones](https://github.com/fracz/youaremighty/tree/master/p
 
 ## URL creation rules
 
-* `https://youaremighty.fracz.com/Name` -> Name in EN
-* `https://youaremighty.fracz.com/pl/Name` -> Name in PL
-* `https://mozeszwszystko.fracz.pl/Name` -> Name in PL
+* `https://fracz.github.io/youaremighty/Name` -> Name in EN
+* `https://fracz.github.io/youaremighty/pl/Name` -> Name in PL
