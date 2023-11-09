@@ -18,7 +18,7 @@
 ## Want to add your language?
 
 Send me a Pull Request with the new language (create a language file
-based on the [existing ones](https://github.com/fracz/youaremighty/tree/master/public/texts)).
+based on the [existing ones](https://github.com/fracz/youaremighty/tree/master/lang.js)).
 
 ## URL creation rules
 
